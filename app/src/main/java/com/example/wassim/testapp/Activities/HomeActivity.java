@@ -48,8 +48,7 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Article>> call, Throwable t) {
-                System.out.println("*********************"+t.getCause());
-                Toast.makeText(HomeActivity.this, "Something went wrong...Error message: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeActivity.this, "Something went wrong...", Toast.LENGTH_SHORT).show();
             }
         });
 

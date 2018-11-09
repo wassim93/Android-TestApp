@@ -25,15 +25,18 @@
             android:orientation="vertical"
             android:padding="10dp"
             android:layout_height="wrap_content">
-            <TextView
+            <com.example.wassim.testapp.Utils.CustomFonts.MyTextView
                 android:id="@+id/article_name"
-                android:text="tttttttttttttttttttttt"
+                android:text="article name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textSize="14sp"
                 android:textColor="#ffffffff" />
             <TextView
                 android:id="@+id/article_subtitle"
-                android:text="ttttttttttttttt"
+                android:text="article subtitle"
+                android:textSize="14sp"
+                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textColor="#ffffffff" />

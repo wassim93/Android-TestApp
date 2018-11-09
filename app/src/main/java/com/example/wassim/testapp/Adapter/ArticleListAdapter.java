@@ -55,9 +55,9 @@ public  class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter
         TextView article_name,article_subtitle;
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            article_img = (ImageView) itemView.findViewById(R.id.article_image);
-            article_name =(TextView) itemView.findViewById(R.id.article_name);
-            article_subtitle =(TextView) itemView.findViewById(R.id.article_subtitle);
+            article_img =  itemView.findViewById(R.id.article_image);
+            article_name = itemView.findViewById(R.id.article_name);
+            article_subtitle = itemView.findViewById(R.id.article_subtitle);
 
         }
     }
