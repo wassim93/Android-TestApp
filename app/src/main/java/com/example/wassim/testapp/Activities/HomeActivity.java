@@ -3,6 +3,7 @@ package com.example.wassim.testapp.Activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.example.wassim.testapp.Network.RetrofitInstance;
 import com.example.wassim.testapp.R;
 import com.example.wassim.testapp.Services.Interfaces.ArticleService;
 import com.example.wassim.testapp.Utils.Listener.CustomItemClickListener;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +29,16 @@ public class HomeActivity extends AppCompatActivity {
 
     protected ArticleListAdapter adapter;
      protected RecyclerView recyclerView;
-     final String ARTICLE_ID ="5729fc387fdea7e267fa9761";
+    private ShimmerFrameLayout mShimmerViewContainer;
+
+    final String ARTICLE_ID ="5729fc387fdea7e267fa9761";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        mShimmerViewContainer = findViewById(R.id.shimmer_view_container);
+
 
         /** Create handle for the RetrofitInstance interface*/
         ArticleService service = RetrofitInstance.getRetrofitInstance().create(ArticleService.class);
@@ -60,8 +66,13 @@ public class HomeActivity extends AppCompatActivity {
                 });
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(HomeActivity.this);
                 recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setItemAnimator(new DefaultItemAnimator());
 
                 recyclerView.setAdapter(adapter);
+
+                // stop animating Shimmer and hide the layout
+                mShimmerViewContainer.stopShimmer();
+                mShimmerViewContainer.setVisibility(View.GONE);
             }
 
             @Override
@@ -70,5 +81,17 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mShimmerViewContainer.startShimmer();
+    }
+
+    @Override
+    public void onPause() {
+        mShimmerViewContainer.stopShimmer();
+        super.onPause();
     }
 }
