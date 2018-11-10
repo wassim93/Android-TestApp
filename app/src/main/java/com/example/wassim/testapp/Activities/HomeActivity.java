@@ -1,9 +1,12 @@
 package com.example.wassim.testapp.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.animation.OvershootInterpolator;
 import android.widget.Toast;
 
 import com.example.wassim.testapp.Adapter.ArticleListAdapter;
@@ -11,6 +14,7 @@ import com.example.wassim.testapp.Models.Article;
 import com.example.wassim.testapp.Network.RetrofitInstance;
 import com.example.wassim.testapp.R;
 import com.example.wassim.testapp.Services.Interfaces.ArticleService;
+import com.example.wassim.testapp.Utils.Listener.CustomItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +25,8 @@ import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private ArticleListAdapter adapter;
-     private RecyclerView recyclerView;
+    protected ArticleListAdapter adapter;
+     protected RecyclerView recyclerView;
      final String ARTICLE_ID ="5729fc387fdea7e267fa9761";
 
     @Override
@@ -37,12 +41,26 @@ public class HomeActivity extends AppCompatActivity {
         Call<List<Article>> call = service.getArticles(ARTICLE_ID);
         call.enqueue(new Callback<List<Article>>() {
             @Override
-            public void onResponse(Call<List<Article>> call, Response<List<Article>> response) {
+            public void onResponse(Call<List<Article>> call, final Response<List<Article>> response) {
 
                 recyclerView = findViewById(R.id.list);
-                adapter = new ArticleListAdapter(HomeActivity.this, (ArrayList<Article>) response.body());
+                adapter = new ArticleListAdapter(HomeActivity.this, (ArrayList<Article>) response.body(), new CustomItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, int position) {
+                        if(!response.body().get(position).getExternal_link().equals("")){
+                            Intent i = new Intent(HomeActivity.this, DetailActivity.class);
+                            i.putExtra("external_url", response.body().get(position).getExternal_link());
+                            startActivity(i);
+                        }else{
+                            Toast.makeText(HomeActivity.this, "No external link found", Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    }
+                });
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(HomeActivity.this);
                 recyclerView.setLayoutManager(layoutManager);
+
                 recyclerView.setAdapter(adapter);
             }
 

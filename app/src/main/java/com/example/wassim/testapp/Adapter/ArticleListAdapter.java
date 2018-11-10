@@ -12,18 +12,22 @@ import android.widget.TextView;
 
 import com.example.wassim.testapp.Models.Article;
 import com.example.wassim.testapp.R;
+import com.example.wassim.testapp.Utils.Listener.CustomItemClickListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public  class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<Article> articleArrayList;
+    CustomItemClickListener listener;
 
-    public ArticleListAdapter(Context context, ArrayList<Article> articleArrayList) {
+    public ArticleListAdapter(Context context, ArrayList<Article> articleArrayList,CustomItemClickListener listener) {
         this.context = context;
         this.articleArrayList = articleArrayList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -31,8 +35,15 @@ public  class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item, parent, false);
+        final ViewHolder mViewHolder = new ViewHolder(itemView);
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(v, mViewHolder.getAdapterPosition());
+            }
+        });
 
-        return new ViewHolder(itemView);
+        return mViewHolder;
     }
 
     @Override
@@ -61,5 +72,10 @@ public  class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter
 
         }
     }
+
+
+
+
+
 
 }
