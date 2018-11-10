@@ -14,11 +14,16 @@ import com.example.wassim.testapp.R;
 public class DetailActivity extends AppCompatActivity {
     protected WebView webView;
     protected ProgressDialog progDailog;
+    private android.support.v7.widget.Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        toolbar =  findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
         webView = findViewById(R.id.webview);
 
         Intent intent = getIntent();

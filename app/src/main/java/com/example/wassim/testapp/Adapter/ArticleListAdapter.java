@@ -56,6 +56,22 @@ public  class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter
 
     }
 
+    public void clear() {
+
+        this.articleArrayList.clear();
+
+        notifyDataSetChanged();
+
+    }
+
+    public void addAll(List<Article> list) {
+
+        this.articleArrayList.addAll(list);
+
+        notifyDataSetChanged();
+
+    }
+
     @Override
     public int getItemCount() {
         return articleArrayList.size();

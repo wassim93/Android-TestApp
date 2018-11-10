@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     tools:context=".Activities.HomeActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        <com.example.wassim.testapp.Utils.CustomFonts.MyTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:text="@string/home_title"
+            android:layout_gravity="center"
+            />
+    </android.support.v7.widget.Toolbar>
+
     <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_below="@id/toolbar"
         android:id="@+id/shimmer_view_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,13 +46,23 @@
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/list"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_below="@id/shimmer_view_container"
+        android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent">
 
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-</android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+
+
+</RelativeLayout>
