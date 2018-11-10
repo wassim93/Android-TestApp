@@ -6,4 +6,5 @@
     <color name="placeholder_bg">#d1cfcf</color>
     <color name="white">#ffffff</color>
     <color name="text">#777</color>
+    <color name="toolbarcolor">#201f1f</color>
 </resources>

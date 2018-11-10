@@ -22,8 +22,11 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         toolbar =  findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
+
+
         webView = findViewById(R.id.webview);
 
         Intent intent = getIntent();
@@ -35,6 +38,12 @@ public class DetailActivity extends AppCompatActivity {
         webSetting.setJavaScriptEnabled(true);
         webView.loadUrl(external_link);
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     private class CustomWebViewClient extends WebViewClient {
